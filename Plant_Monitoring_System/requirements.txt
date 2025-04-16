@@ -1,0 +1,6 @@
+Flask
+numpy
+pillow
+tensorflow==2.18.0
+scikit-learn
+joblib

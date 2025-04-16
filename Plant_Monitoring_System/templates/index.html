@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Plant Care</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 50px;
+        }
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+        .btn-success {
+            background-color: #27ae60;
+            border-color: #27ae60;
+        }
+        .btn-success:hover {
+            background-color: #219653;
+            border-color: #219653;
+        }
+        .feature-icon {
+            font-size: 3rem;
+            color: #27ae60;
+            margin-bottom: 20px;
+        }
+        .benefits {
+            background-color: #eaf4eb;
+            padding: 50px 0;
+            margin: 50px 0;
+        }
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header text-center">
+        <div class="container">
+            <h1 class="display-4">Smart Plant Care</h1>
+            <p class="lead">Use AI to keep your plants healthy and thriving</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-6 mb-4">
+                <div class="feature-card">
+                    <img src="static/Plant_Disease_img.webp" alt="Plant disease detection" class="card-img-top">
+                    <div class="card-body text-center p-4">
+                        <h3>Plant Disease Detection</h3>
+                        <p class="text-muted">Upload a photo of your plant and get instant disease diagnosis with treatment recommendations.</p>
+                        <a href="/predict_disease" class="btn btn-success btn-lg mt-3">Detect Disease</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="feature-card">
+                    <img src="static/Plant_Watering_img.webp" alt="Plant watering prediction" class="card-img-top">
+                    <div class="card-body text-center p-4">
+                        <h3>Watering Prediction</h3>
+                        <p class="text-muted">Input environmental conditions to determine if your plant needs watering.</p>
+                        <a href="/predict_watering" class="btn btn-success btn-lg mt-3">Check Watering Needs</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-12 text-center mb-5">
+                <h2>How It Works</h2>
+                <p class="lead text-muted">Our AI-powered system helps you take better care of your plants</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 text-center mb-4">
+                <div class="p-4">
+                    <div class="feature-icon">📷</div>
+                    <h4>Take a Photo</h4>
+                    <p>Capture a clear image of your plant's affected area or input environmental data.</p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <div class="p-4">
+                    <div class="feature-icon">🔍</div>
+                    <h4>Get Analysis</h4>
+                    <p>Our machine learning models analyze the information to provide accurate results.</p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <div class="p-4">
+                    <div class="feature-icon">💡</div>
+                    <h4>Receive Recommendations</h4>
+                    <p>Get actionable advice on treatment or watering based on the analysis.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="benefits">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2>Benefits of Smart Plant Care</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="d-flex">
+                        <div class="me-3">✅</div>
+                        <div>
+                            <h5>Early Disease Detection</h5>
+                            <p>Identify plant health issues before they become severe and harder to treat.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="d-flex">
+                        <div class="me-3">✅</div>
+                        <div>
+                            <h5>Optimize Watering</h5>
+                            <p>Prevent overwatering and underwatering based on environmental conditions.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="d-flex">
+                        <div class="me-3">✅</div>
+                        <div>
+                            <h5>Save Time & Resources</h5>
+                            <p>Focus your efforts where they're needed most with smart recommendations.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="d-flex">
+                        <div class="me-3">✅</div>
+                        <div>
+                            <h5>Expert Knowledge</h5>
+                            <p>Access plant care recommendations backed by machine learning and horticultural data.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto text-center">
+                <h3>Ready to improve your plant care?</h3>
+                <p class="lead text-muted mb-4">Choose one of our smart tools to get started</p>
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="/predict_disease" class="btn btn-success">Disease Detection</a>
+                    <a href="/predict_watering" class="btn btn-outline-success">Watering Prediction</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer text-center mt-5">
+        <div class="container">
+            <p>&copy; 2025 Smart Plant Care. All rights reserved.</p>
+            <p class="small">Powered by machine learning for healthier plants</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

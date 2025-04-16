@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Watering Prediction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .btn-success {
+            background-color: #27ae60;
+            border-color: #27ae60;
+        }
+        .btn-success:hover {
+            background-color: #219653;
+            border-color: #219653;
+        }
+        .result-box {
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .needs-watering {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .no-watering {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .feature-description {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header text-center">
+        <h1>Plant Watering Prediction</h1>
+        <p>Determine if your plant needs watering based on environmental conditions</p>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="mb-4">
+                    <a href="/" class="btn btn-secondary mb-3">← Back to Home</a>
+                </div>
+
+                {% if error %}
+                <div class="alert alert-danger">{{ error }}</div>
+                {% endif %}
+
+                {% if prediction %}
+                <div class="result-box {% if status == 'needs_watering' %}needs-watering{% else %}no-watering{% endif %}">
+                    <h3>Prediction Result</h3>
+                    <p class="lead">{{ prediction }}</p>
+                    {% if status == 'needs_watering' %}
+                    <p>💧 Your plant is showing signs of dehydration based on the environmental parameters you provided.</p>
+                    {% else %}
+                    <p>✅ Your plant's moisture levels appear sufficient based on the current environmental conditions.</p>
+                    {% endif %}
+                </div>
+                <hr class="my-4">
+                <h4>Make another prediction</h4>
+                {% endif %}
+
+                <div class="form-container">
+                    <form method="post" action="/predict_watering">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="light_intensity" class="form-label">Light Intensity (lux)</label>
+                                <input type="number" step="0.01" class="form-control" id="light_intensity" name="light_intensity" required>
+                                <small class="feature-description">The amount of light hitting your plant (1-10)</small>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="temperature" class="form-label">Temperature (°C)</label>
+                                <input type="number" step="0.01" class="form-control" id="temperature" name="temperature" required>
+                                <small class="feature-description">Ambient temperature around the plant</small>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="humidity" class="form-label">Humidity (%)</label>
+                                <input type="number" step="0.01" class="form-control" id="humidity" name="humidity" required>
+                                <small class="feature-description">Relative humidity in the air</small>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="soil_moisture" class="form-label">Soil Moisture (%)</label>
+                                <input type="number" step="0.01" class="form-control" id="soil_moisture" name="soil_moisture" required>
+                                <small class="feature-description">Current moisture level in the soil</small>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="soil_temperature" class="form-label">Soil Temperature (°C)</label>
+                                <input type="number" step="0.01" class="form-control" id="soil_temperature" name="soil_temperature" required>
+                                <small class="feature-description">Temperature of the soil</small>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="soil_ph" class="form-label">Soil pH</label>
+                                <input type="number" step="0.01" class="form-control" id="soil_ph" name="soil_ph" required>
+                                <small class="feature-description">pH level of the soil (1-14)</small>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="soil_ec" class="form-label">Soil EC (mS/cm)</label>
+                                <input type="number" step="0.01" class="form-control" id="soil_ec" name="soil_ec" required>
+                                <small class="feature-description">Electrical conductivity of the soil</small>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="leaf_temperature" class="form-label">Leaf Temperature (°C)</label>
+                                <input type="number" step="0.01" class="form-control" id="leaf_temperature" name="leaf_temperature" required>
+                                <small class="feature-description">Temperature of the plant leaves</small>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="atmospheric_pressure" class="form-label">Atmospheric Pressure (hPa)</label>
+                                <input type="number" step="0.01" class="form-control" id="atmospheric_pressure" name="atmospheric_pressure" required>
+                                <small class="feature-description">Current atmospheric pressure</small>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="vapor_density" class="form-label">Vapor Density (g/m³)</label>
+                                <input type="number" step="0.01" class="form-control" id="vapor_density" name="vapor_density" required>
+                                <small class="feature-description">Water vapor density in the air</small>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="heat_index" class="form-label">Heat Index</label>
+                                <input type="number" step="0.01" class="form-control" id="heat_index" name="heat_index" required>
+                                <small class="feature-description">Perceived temperature from humidity and air temperature</small>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="rain_status" class="form-label">Rain Status</label>
+                                <input type="number" min="0" max="100" class="form-control" id="rain_status" name="rain_status" required>
+                                <small class="feature-description">Rain probability (0-100)</small>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="cloud_status" class="form-label">Cloud Status</label>
+                                <input type="number" min="0" max="100" class="form-control" id="cloud_status" name="cloud_status" required>
+                                <small class="feature-description">Cloud coverage (0-100)</small>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="wind_status" class="form-label">Wind Status (km/h)</label>
+                                <input type="number" step="0.01" class="form-control" id="wind_status" name="wind_status" required>
+                                <small class="feature-description">Current wind speed</small>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success btn-lg">Predict Watering Needs</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center mt-5 pb-3">
+        <p>&copy; 2025 Smart Plant Care. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
